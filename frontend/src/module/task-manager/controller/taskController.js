@@ -23,7 +23,7 @@ const taskController = (getTaskUseCase) => () => {
   });
   const events = {
     "view-record": async (item) => {
-      await showDetails(item);
+      await updateItem(item, true);
     },
     "change-record": async (item) => {
       await updateItem(item);
@@ -87,33 +87,12 @@ const taskController = (getTaskUseCase) => () => {
     }
   };
 
-  const showDetails = async (item) => {
+  const updateItem = async (item, readonly) => {
     try {
       loading.value = true;
-      console.log(item);
-      // dialogForm.value = true
-    } catch (error) {
-      Toastify({
-        text: error,
-        duration: 3000,
-        close: true,
-        gravity: "top",
-        position: "right",
-        style: {
-          background: "red",
-          borderRadius: "50px",
-        },
-      }).showToast();
-    } finally {
-      loading.value = false;
-    }
-  };
-
-  const updateItem = async (item) => {
-    try {
-      loading.value = true;
-      console.log(item);
-      // dialogForm.value = true
+      read.value = readonly;
+      modelTask.value = { ...item };
+      dialogForm.value = true;
     } catch (error) {
       Toastify({
         text: error,

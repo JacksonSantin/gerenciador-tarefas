@@ -91,7 +91,7 @@
                 variant="elevated"
                 color="primary"
                 prepend-icon="mdi-content-save"
-                :disabled="controller.loading.value"
+                :disabled="controller.loading.value || controller.read.value"
                 :loading="controller.loading.value"
                 @click="controller.save"
               >
