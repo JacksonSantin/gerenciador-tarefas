@@ -50,11 +50,37 @@
                   :loading="controller.loading.value"
                   @click="controller.createTask"
                 >
-                  <v-icon color="primary" start>mdi-plus</v-icon>
+                  <v-icon start color="primary">mdi-plus</v-icon>
                   Incluir
                 </v-btn>
               </template>
             </v-tooltip>
+            <v-menu
+              v-model="controller.dialogFilter.value"
+              :close-on-content-click="false"
+              :close-on-click="false"
+              :nudge-width="200"
+              offset-x
+              offset-y
+            >
+              <template v-slot:activator="{ props: menu }">
+                <v-tooltip location="bottom" text="Filtrar registro">
+                  <template v-slot:activator="{ props: tooltip }">
+                    <v-btn
+                      size="small"
+                      variant="text"
+                      v-bind="mergeProps(menu, tooltip)"
+                      :disabled="controller.loading.value"
+                      :loading="controller.loading.value"
+                    >
+                      <v-icon start color="primary">mdi-filter</v-icon> filtro
+                    </v-btn>
+                  </template>
+                </v-tooltip>
+              </template>
+
+              <table-filter :controller="controller" />
+            </v-menu>
           </div>
         </v-toolbar>
       </template>
@@ -117,6 +143,8 @@
 
 <script setup>
 import dayjs from "dayjs";
+import TableFilter from "./filter.vue";
+import { mergeProps } from "vue";
 
 const { controller } = defineProps({
   controller: {

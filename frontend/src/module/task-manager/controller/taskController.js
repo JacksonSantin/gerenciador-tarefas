@@ -1,23 +1,28 @@
-import { useDisplay, useTheme } from "vuetify/lib/framework.mjs";
+import { useDisplay } from "vuetify/lib/framework.mjs";
 import { computed, nextTick, onMounted, ref } from "vue";
 import { headers } from "../const/headers";
 import { actions } from "../const/actions";
+import { filter } from "../const/filter";
+import { rules } from "@/core/util/rules";
 import Task from "../domain/model/task";
 import Toastify from "toastify-js";
 import Swal from "sweetalert2";
 
 const taskController =
   (getTaskUseCase, deleteTaskUseCase, saveTaskUseCase) => () => {
-    const theme = useTheme();
     const display = useDisplay();
     const modelTask = ref(new Task({}));
     const formRef = ref(null);
+    const formFilter = ref(null);
     const tableItems = ref([]);
     const tableCount = ref(0);
     const tableHeaders = ref(headers);
     const tableActions = ref(actions);
+    const formRules = ref(rules);
+    const filterTable = ref(structuredClone(filter));
     const search = ref("");
     const dialogForm = ref(false);
+    const dialogFilter = ref(false);
     const loading = ref(false);
     const read = ref(false);
     const isMobile = computed(() => {
@@ -34,23 +39,21 @@ const taskController =
         await deleteItem(item);
       },
     };
-    const rules = {
-      required: (value) => !!value || "O título é obrigatório",
-    };
 
     onMounted(async () => {
       await getRegister();
     });
 
-    const getRegister = async () => {
+    const getRegister = async (filters = {}) => {
       try {
         loading.value = true;
 
-        const { items, count } = await getTaskUseCase();
+        const { items, count } = await getTaskUseCase(filters);
 
         tableItems.value = items;
         tableCount.value = count;
       } catch (error) {
+        console.log(error);
         Toastify({
           text: error,
           duration: 3000,
@@ -62,6 +65,22 @@ const taskController =
             borderRadius: "50px",
           },
         }).showToast();
+      } finally {
+        loading.value = false;
+      }
+    };
+
+    const filterRecords = async (filters = {}) => {
+      try {
+        const validate = await formFilter.value.validate();
+        if (!validate.valid) {
+          return;
+        }
+
+        loading.value = true;
+        await getRegister(filters);
+        close();
+      } catch (error) {
       } finally {
         loading.value = false;
       }
@@ -226,6 +245,22 @@ const taskController =
       resetFormValidation();
     };
 
+    const close = () => {
+      formFilter.value.resetValidation();
+      dialogFilter.value = false;
+    };
+
+    const clear = () => {
+      filterTable.value.id.ini = 0;
+      filterTable.value.id.fim = 0;
+      filterTable.value.created_at.ini = "";
+      filterTable.value.created_at.fim = "";
+      filterTable.value.completed.eq.value = null;
+      formFilter.value.resetValidation();
+      getRegister({});
+      close();
+    };
+
     return {
       modelTask,
       formRef,
@@ -233,8 +268,12 @@ const taskController =
       tableCount,
       tableHeaders,
       tableActions,
+      formRules,
+      formFilter,
+      filterTable,
       search,
       dialogForm,
+      dialogFilter,
       loading,
       read,
       isMobile,
@@ -245,6 +284,9 @@ const taskController =
       resetFormValidation,
       formValidation,
       closeDialogForm,
+      close,
+      clear,
+      filterRecords,
     };
   };
 

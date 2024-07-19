@@ -28,7 +28,8 @@
                 <v-text-field
                   label="Título"
                   variant="underlined"
-                  :rules="[controller.rules.required]"
+                  density="compact"
+                  :rules="[controller.formRules.value.required]"
                   v-model="controller.modelTask.value.title"
                 />
               </v-col>
@@ -38,6 +39,7 @@
                 <v-textarea
                   label="Descrição"
                   variant="underlined"
+                  density="compact"
                   maxlength="60"
                   rows="2"
                   counter

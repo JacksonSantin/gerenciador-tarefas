@@ -5,8 +5,8 @@
 
 CREATE TABLE tasks (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
-    created_at timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    title character varying(255) NOT NULL,
+    created_at timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    title character varying(255) NOT NULL UNIQUE,
     description character varying(255) NULL,
     completed boolean NOT NULL DEFAULT false
   );

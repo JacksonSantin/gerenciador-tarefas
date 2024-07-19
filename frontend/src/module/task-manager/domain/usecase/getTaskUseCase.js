@@ -1,12 +1,14 @@
-const getTaskUseCase = (repository) => async () => {
-  try {
-    const items = await repository();
-    const count = items.length;
+const getTaskUseCase =
+  (repository) =>
+  async (filters = {}) => {
+    try {
+      const items = await repository(filters);
+      const count = items.length;
 
-    return { items, count };
-  } catch (error) {
-    throw error;
-  }
-};
+      return { items, count };
+    } catch (error) {
+      throw error;
+    }
+  };
 
 export default getTaskUseCase;
