@@ -121,7 +121,7 @@ $ yarn run serve
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
-#### **Frontend** ([Vue](https://vuejs.org/)) + [Vuetify](https://vuetifyjs.com/en/))
+#### **Frontend** ([Vue](https://vuejs.org/) + [Vuetify](https://vuetifyjs.com/en/))
 
 - **[Axios](https://github.com/axios/axios)**
 - **[Dayjs](https://day.js.org/)**
@@ -164,4 +164,4 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 Este projeto esta sobe a licença [MIT](https://github.com/JacksonSantin/gerenciador-tarefas/blob/main/LICENSE).
 
-Feito com ❤️ por Jackson Dhanyel Santin 👋🏽 [Entre em contato!](https://about-me-jacksonsantin.vercel.app/#contato)
+Feito com ❤️ por Jackson Dhanyel Santin 👋🏽 [Entre em contato!](https://about-me-jacksonsantin.vercel.app)
