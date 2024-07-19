@@ -126,6 +126,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - **[Axios](https://github.com/axios/axios)**
 - **[Dayjs](https://day.js.org/)**
 - **[Toastify](https://apvarun.github.io/toastify-js/)**
+- **[SweetAlert2](https://sweetalert2.github.io/)**
 
 > Veja o arquivo [package.json](https://github.com/JacksonSantin/gerenciador-tarefas/blob/main/frontend/package.json)
 

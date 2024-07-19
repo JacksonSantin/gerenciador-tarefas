@@ -4,6 +4,7 @@ import { headers } from "../const/headers";
 import { actions } from "../const/actions";
 import Task from "../domain/model/task";
 import Toastify from "toastify-js";
+import Swal from "sweetalert2";
 
 const taskController =
   (getTaskUseCase, deleteTaskUseCase, saveTaskUseCase) => () => {
@@ -120,10 +121,19 @@ const taskController =
 
         loading.value = true;
 
-        const { items, count } = await saveTaskUseCase(modelTask.value);
+        const result = await saveTaskUseCase(modelTask.value);
+        Toastify({
+          text: result.message,
+          duration: 3000,
+          gravity: "top",
+          position: "right",
+          style: {
+            background: "green",
+            borderRadius: "50px",
+          },
+        }).showToast();
 
-        tableItems.value = items;
-        tableCount.value = count;
+        await getRegister();
 
         closeDialogForm();
       } catch (error) {
@@ -145,21 +155,43 @@ const taskController =
 
     const deleteItem = async (item) => {
       try {
-        loading.value = true;
+        const result = await Swal.fire({
+          title: "Deseja realmente excluir o registro?",
+          text: "Esta ação é irreversível!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Sim",
+          cancelButtonText: "Não",
+          reverseButtons: true,
+          didOpen: () => {
+            const popup = Swal.getPopup();
+            const confirmButton = popup.querySelector(".swal2-confirm");
+            confirmButton.style.backgroundColor = "#1867c0";
+            confirmButton.style.color = "#ffffff";
 
-        await deleteTaskUseCase(item.id);
-        await getRegister();
-
-        Toastify({
-          text: "Registro excluído com sucesso!",
-          duration: 3000,
-          gravity: "top",
-          position: "right",
-          style: {
-            background: "green",
-            borderRadius: "50px",
+            const cancelButton = popup.querySelector(".swal2-cancel");
+            cancelButton.style.backgroundColor = "#dc3545";
+            cancelButton.style.color = "#ffffff";
           },
-        }).showToast();
+        });
+
+        if (result.isConfirmed) {
+          loading.value = true;
+
+          await deleteTaskUseCase(item.id);
+          await getRegister();
+
+          Toastify({
+            text: "Registro excluído com sucesso!",
+            duration: 3000,
+            gravity: "top",
+            position: "right",
+            style: {
+              background: "green",
+              borderRadius: "50px",
+            },
+          }).showToast();
+        }
       } catch (error) {
         Toastify({
           text: error,

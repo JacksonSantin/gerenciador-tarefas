@@ -4,16 +4,23 @@ const saveTaskUseCase =
       const isEdit = !!payload.id;
 
       if (isEdit) {
-        const items = await updateTaskRepository(payload.toSave());
-        const count = items.length;
+        const data = {
+          id: payload.id,
+          title: payload.title,
+          description: payload.description,
+          completed: payload.completed ? "true" : "false",
+        };
 
-        return { items, count };
+        return await updateTaskRepository(data);
       }
 
-      const items = await createTaskRepository(payload.toSave());
-      const count = items.length;
+      const data = {
+        title: payload.title,
+        description: payload.description,
+        completed: payload.completed ? "true" : "false",
+      };
 
-      return { items, count };
+      return await createTaskRepository(data);
     } catch (error) {
       throw error;
     }

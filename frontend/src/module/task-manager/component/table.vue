@@ -5,6 +5,7 @@
       loading-text="Carregando"
       items-per-page-text="Itens por página"
       density="compact"
+      items-per-page="30"
       height="calc(100vh - 207px)"
       :mobile="controller.isMobile.value"
       :headers="controller.tableHeaders.value"
@@ -12,6 +13,12 @@
       :items-length="controller.tableCount.value"
       :loading="controller.loading.value"
       :search="controller.search.value"
+      :items-per-page-options="[
+        { value: 30, title: '30' },
+        { value: 60, title: '60' },
+        { value: 100, title: '100' },
+        { value: -1, title: 'Todos' },
+      ]"
     >
       <template v-slot:top>
         <v-toolbar density="compact" color="transparent" flat>
