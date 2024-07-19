@@ -1,10 +1,10 @@
 const deleteTaskRepository = (axios) => async (payload) => {
   try {
-    const response = await axios.delete("tasks", { payload });
-
-    return response?.data;
+    return await axios.delete("tasks", {
+      data: { id: payload },
+    });
   } catch (error) {
-    throw error;
+    throw error.response.data.error.message;
   }
 };
 
