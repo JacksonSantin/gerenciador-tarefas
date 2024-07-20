@@ -57,7 +57,6 @@ const taskController =
         Toastify({
           text: error,
           duration: 3000,
-          close: true,
           gravity: "top",
           position: "right",
           style: {
@@ -96,7 +95,6 @@ const taskController =
         Toastify({
           text: error,
           duration: 3000,
-          close: true,
           gravity: "top",
           position: "right",
           style: {
@@ -120,7 +118,6 @@ const taskController =
         Toastify({
           text: error,
           duration: 3000,
-          close: true,
           gravity: "top",
           position: "right",
           style: {
@@ -159,7 +156,6 @@ const taskController =
         Toastify({
           text: error,
           duration: 3000,
-          close: true,
           gravity: "top",
           position: "right",
           style: {
@@ -215,7 +211,6 @@ const taskController =
         Toastify({
           text: error,
           duration: 3000,
-          close: true,
           gravity: "top",
           position: "right",
           style: {
