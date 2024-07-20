@@ -66,6 +66,9 @@ $ docker-compose up --build -d
   <a href="https://github.com/JacksonSantin/gerenciador-tarefas/blob/main/backend/insomnia/Insomnia_2024-07-19.json" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Insomnia"></a>
 </p>
 
+Se deu tudo certo, no seu Docker desktop deverá aparecer o container **backend** que foi criado, conforme imagem abaixo:
+<img src="./images/docker_1.png" alt="Passo 01">
+
 Antes de rodar a aplicação front-end, é preciso ter o banco de dados configurado com as devidas tabelas e colunas, para isso, utilizei como gerenciador de banco de dados o [Beekeeper Studio](https://www.beekeeperstudio.io/), mas fica ao seu critério qual gerenciador irá querer utilizar, no caso, abaixo, mostrarei o passo a passo para importar o SQL pelo Beekeeper.
 
 1. Baixe o arquivo [database_postgres.sql](https://github.com/JacksonSantin/gerenciador-tarefas/blob/main/backend/script_bd/database_postgres.sql) na sua máquina;
