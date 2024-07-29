@@ -53,7 +53,6 @@ const taskController =
         tableItems.value = items;
         tableCount.value = count;
       } catch (error) {
-        console.log(error);
         Toastify({
           text: error,
           duration: 3000,
@@ -80,6 +79,16 @@ const taskController =
         await getRegister(filters);
         close();
       } catch (error) {
+        Toastify({
+          text: error,
+          duration: 3000,
+          gravity: "top",
+          position: "right",
+          style: {
+            background: "red",
+            borderRadius: "50px",
+          },
+        }).showToast();
       } finally {
         loading.value = false;
       }
